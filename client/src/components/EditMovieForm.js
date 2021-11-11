@@ -10,9 +10,9 @@ const EditMovieForm = (props) => {
 		director: "",
 		genre: "",
 		metascore: 0,
-		description: "",
-		id: 0
+		description: ""
 	});
+	const [list, setList] = useState([]);
 
 	const { id } = useParams();
 	const { push } = useHistory();
@@ -22,9 +22,7 @@ const EditMovieForm = (props) => {
 			.then(response => {
 				setMovie(response.data);
 			})
-			.catch(error => {
-				console.log(error);
-			})
+			.catch(error => console.log(error))
 	}, [])
 
 	const handleChange = (e) => {
@@ -36,6 +34,12 @@ const EditMovieForm = (props) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
+		axios.put(`http://localhost:5000/api/movies/${id}`, movie)
+		.then(response => {
+			setList(response.data);
+		})
+		.catch(error => console.log(error))
 	}
 
 	const { title, director, genre, metascore, description } = movie;
