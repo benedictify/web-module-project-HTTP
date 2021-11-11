@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useHistory, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 
-const EditMovieForm = (props) => {
+const AddMovieForm = (props) => {
 	const [movie, setMovie] = useState({
 		title: "",
 		director: "",
@@ -11,16 +11,7 @@ const EditMovieForm = (props) => {
 		description: ""
 	});
 
-	const { id } = useParams();
 	const { push } = useHistory();
-
-	useEffect(() => {
-		axios.get(`http://localhost:5000/api/movies/${id}`)
-			.then(response => {
-				setMovie(response.data);
-			})
-			.catch(error => console.log(error))
-	}, [])
 
 	const handleChange = (event) => {
 		setMovie({
@@ -32,10 +23,10 @@ const EditMovieForm = (props) => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 
-		axios.put(`http://localhost:5000/api/movies/${id}`, movie)
+		axios.post(`http://localhost:5000/api/movies/`, movie)
 			.then(response => {
 				props.setMovies(response.data);
-				push(`/movies/${id}`)
+				push(`/movies`)
 			})
 			.catch(error => console.log(error))
 	}
@@ -47,7 +38,7 @@ const EditMovieForm = (props) => {
 			<div className="modal-content">
 				<form onSubmit={handleSubmit}>
 					<div className="modal-header">
-						<h4 className="modal-title">Editing <strong>{title}</strong></h4>
+						<h4 className="modal-title">Add Movie <strong>{title}</strong></h4>
 					</div>
 					<div className="modal-body">
 						<div className="form-group">
@@ -74,13 +65,14 @@ const EditMovieForm = (props) => {
 					</div>
 					<div className="modal-footer">
 						<input type="submit" className="btn btn-info" value="Save" />
-						<Link to={`/movies/${id}`}>
-							<input type="button" className="btn btn-default" value="Cancel" />\
+						<Link to={`/movies`}>
+							<input type="button" className="btn btn-default" value="Cancel" />
 						</Link>
 					</div>
 				</form>
 			</div>
-		</div>);
+		</div>
+	)
 }
 
-export default EditMovieForm;
+export default AddMovieForm;

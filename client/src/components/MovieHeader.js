@@ -5,10 +5,10 @@ const MovieHeader = () => {
 	return (<div className="table-title">
 		<div className="row">
 			<div className="col-sm-6">
-				<h2>IMDB Movie Database</h2>
+				<h2>I. Movie DataBase</h2>
 			</div>
 			<div className="col-sm-6">
-				<Link className="btn btn-success"><i className="material-icons">&#xE147;</i> <span>Add New Movie</span></Link>
+				<Link to="/movies/new" className="btn btn-success"><i className="material-icons">&#xE147;</i> <span>Add New Movie</span></Link>
 				<Link to="/movies" className="btn btn-primary">View All Movies</Link>
 			</div>
 		</div>
