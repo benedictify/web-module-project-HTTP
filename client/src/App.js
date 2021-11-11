@@ -29,7 +29,6 @@ const App = (props) => {
 	}
 
 	const addToFavorites = (movie) => {
-
 	}
 
 	return (
