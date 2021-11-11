@@ -41,7 +41,7 @@ const EditMovieForm = (props) => {
 		})
 		.catch(error => console.log(error))
 	}
-
+	
 	const { title, director, genre, metascore, description } = movie;
 
 	return (
