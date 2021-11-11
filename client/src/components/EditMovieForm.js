@@ -5,15 +5,27 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const EditMovieForm = (props) => {
-	const { push } = useHistory();
-
 	const [movie, setMovie] = useState({
 		title: "",
 		director: "",
 		genre: "",
 		metascore: 0,
-		description: ""
+		description: "",
+		id: 0
 	});
+
+	const { id } = useParams();
+	const { push } = useHistory();
+
+	useEffect(() => {
+		axios.get(`http://localhost:5000/api/movies/${id}`)
+			.then(response => {
+				setMovie(response.data);
+			})
+			.catch(error => {
+				console.log(error);
+			})
+	}, [])
 
 	const handleChange = (e) => {
 		setMovie({
